@@ -13,10 +13,16 @@ def get_db():
     conn.autocommit = True
     return conn
 
-def get_all_characters():
+def get_all_characters(category=None):
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, name, actor, image_url FROM characters;")
+
+   
+    if category:
+        cursor.execute("SELECT id, name, actor, image_url, description FROM characters WHERE category = %s;", (category,))
+    else:
+        cursor.execute("SELECT id, name, actor, image_url FROM characters;")
+    
     characters = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -25,35 +31,43 @@ def get_all_characters():
 
 
 
-def search_characters(query):
+
+def search_characters(query, category=None):
     conn = get_db()
     cursor = conn.cursor()
 
-   
-    cursor.execute("""
-        SELECT id, name, actor, image_url
-        FROM characters
-        WHERE search_vector @@ plainto_tsquery('english', %s)
-    """, (query,))  
-
+    
+    if category:
+        cursor.execute("""
+            SELECT id, name, actor, image_url, description
+            FROM characters
+            WHERE search_vector @@ plainto_tsquery('english', %s)
+            AND category = %s
+        """, (query, category))
+    else:
+        cursor.execute("""
+            SELECT id, name, actor, image_url, description
+            FROM characters
+            WHERE search_vector @@ plainto_tsquery('english', %s)
+        """, (query,))
+    
     characters = cursor.fetchall()
     cursor.close()
     conn.close()
 
     return [{"id": c[0], "name": c[1], "actor": c[2], "image_url": c[3]} for c in characters]
 
-   
 
 def get_character_by_id(character_id):
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, name, actor, image_url FROM characters WHERE id = %s", (character_id,))
+    cursor.execute("SELECT id, name, actor, image_url, description FROM characters WHERE id = %s", (character_id,))
     character = cursor.fetchone()  
     cursor.close()
     conn.close()
 
     if character:
-        return {"id": character[0], "name": character[1], "actor": character[2], "image_url": character[3]}
+        return {"id": character[0], "name": character[1], "actor": character[2], "image_url": character[3], "description" : character[4]}
     else:
         return None  
 

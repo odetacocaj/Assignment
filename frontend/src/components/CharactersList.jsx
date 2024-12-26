@@ -24,11 +24,10 @@ function CharacterList() {
     }
   };
 
-  
   const handleSearchChange = (e) => {
     const query = e.target.value;
-    setSearchQuery(query); 
-    fetchCharacters(query); 
+    setSearchQuery(query);
+    fetchCharacters(query);
   };
 
   return (

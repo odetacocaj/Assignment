@@ -20,10 +20,10 @@ function CharacterDetail() {
       <img src={character.image_url} alt={character.name} />
       <h1>{character.name}</h1>
       <p>
-        <strong>Actor:</strong> {character.actor}
+        <strong>Played by:</strong> {character.actor}
       </p>
       <p>
-        <strong>Details:</strong> {character.details || "No details available."}
+        <strong>Played in:</strong> {character.description || "No details available."}
       </p>
     </div>
   );

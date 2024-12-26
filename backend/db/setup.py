@@ -10,11 +10,12 @@ def create_tables():
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
 
+   
     conn = psycopg2.connect(dbname="postgres", user=db_user, password=db_password)
     conn.autocommit = True
     cur = conn.cursor()
 
-
+    
     cur.execute(sql.SQL("SELECT 1 FROM pg_catalog.pg_database WHERE datname = %s"), [db_name])
     if not cur.fetchone():
         cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(db_name)))
@@ -22,26 +23,29 @@ def create_tables():
     cur.close()
     conn.close()
 
-
     conn = psycopg2.connect(dbname=db_name, user=db_user, password=db_password)
     cur = conn.cursor()
 
-
+    
     cur.execute("""
     CREATE TABLE IF NOT EXISTS characters (
         id SERIAL PRIMARY KEY,
-        name TEXT,
-        actor TEXT,
+        name TEXT NOT NULL,
+        actor TEXT NOT NULL,
         image_url TEXT,
-        search_vector tsvector  -- Added search_vector column for full-text search
+        description TEXT,  -- Nullable field for description
+        category TEXT NOT NULL,  -- For distinguishing between 'norsemen', 'vikings', etc.
+        search_vector tsvector,
+        CONSTRAINT unique_name_actor_category UNIQUE (name, actor, category)  -- Unique constraint
     );
     """)
 
-
+    
     cur.execute("""
     CREATE INDEX IF NOT EXISTS search_idx ON characters USING GIN (search_vector);
     """)
 
+  
     conn.commit()
     cur.close()
     conn.close()

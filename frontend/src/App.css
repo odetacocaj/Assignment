@@ -19,6 +19,7 @@ body {
   border-radius: 10px;
   min-width: 100%;
 }
+
 .header {
   background-color: #133e87;
   display: flex;
@@ -28,6 +29,8 @@ body {
 }
 
 .title {
+  text-decoration: none;
+  color: white;
   text-align: left;
   font-size: 1rem;
   font-weight: 700;
@@ -35,6 +38,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   transition: color 0.3s ease;
 }
+
 .footer {
   background-color: #cbdceb;
   color: #133e87;
@@ -57,9 +61,20 @@ body {
   margin: 1rem auto;
 }
 
+.card a {
+  text-decoration: none;
+}
+
 .card-top {
-  height: 10rem;
+  height: 12rem;
   background-color: #f3f3e0;
+  overflow: hidden;
+}
+
+.card-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-bottom {
@@ -67,7 +82,7 @@ body {
   background-color: white;
 }
 
-.card-bottom h1 {
+.card-bottom h3 {
   font-size: 1rem;
   margin: 0 0 0.625rem 0;
   color: #133e87;
@@ -78,15 +93,24 @@ body {
   color: #333;
   line-height: 1.5;
 }
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   padding: 1rem;
 }
-.card-container img {
-  width: 100%;
-  min-height: 100%;
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .search-bar-container {
@@ -114,3 +138,56 @@ body {
   align-items: center;
 }
 
+.character-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.character-detail img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.character-detail h1 {
+  font-size: 2.5rem;
+  color: #133e87;
+  margin-bottom: 1rem;
+}
+
+.character-detail p {
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.character-detail strong {
+  font-weight: 600;
+  color: #133e87;
+}
+
+@media (max-width: 768px) {
+  .character-detail {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  .character-detail h1 {
+    font-size: 2rem;
+  }
+
+  .character-detail p {
+    font-size: 1rem;
+  }
+}

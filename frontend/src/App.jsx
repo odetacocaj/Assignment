@@ -8,8 +8,8 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Header />
       <BrowserRouter>
+        <Header />
         <div className="app">
           <main className="main-content">
             <Routes>
@@ -18,8 +18,8 @@ function App() {
             </Routes>
           </main>
         </div>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </>
   );
 }
