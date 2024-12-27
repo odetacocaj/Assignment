@@ -52,7 +52,7 @@ def start_scheduler():
 
 if __name__ == "__main__":
     # Uncomment the following line if you want to scrape and insert data on app startup
-    #setup_database()
+    setup_database()
     
     start_scheduler()
 
