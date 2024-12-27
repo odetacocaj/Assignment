@@ -10,7 +10,7 @@ function CharacterList() {
   }, []);
 
   const fetchCharacters = async (query = "") => {
-    let url = "http://127.0.0.1:5000/api/characters";
+    let url = "https://assignment-h2sh.onrender.com/api/characters";
     if (query) {
       url += `?search=${query}`;
     }

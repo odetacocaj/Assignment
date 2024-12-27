@@ -6,11 +6,10 @@ function CharacterDetail() {
   const [character, setCharacter] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/api/characters/${id}`)
+    fetch(`https://assignment-h2sh.onrender.com/api/characters/${id}`)
       .then((response) => response.json())
       .then((data) => setCharacter(data));
   }, [id]);
-
   if (!character) {
     return <div>Loading...</div>;
   }
