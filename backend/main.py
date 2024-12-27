@@ -1,4 +1,5 @@
 from flask import Flask
+import os
 from scraper.vikings_scraper import scrape_vikings_characters
 from scraper.norsemen_scraper import scrape_norsemen_characters  
 from db.insert_data import insert_characters_and_norsemen  
@@ -55,4 +56,5 @@ if __name__ == "__main__":
     
     start_scheduler()
 
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  
+    app.run(host='0.0.0.0', port=port, debug=True)
