@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 import os
 from scraper.vikings_scraper import scrape_vikings_characters
 from scraper.norsemen_scraper import scrape_norsemen_characters  
@@ -10,6 +11,7 @@ import threading
 import time
 
 app = Flask(__name__)
+CORS(app) 
 app.register_blueprint(main)
 
 def setup_database():
